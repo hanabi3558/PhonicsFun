@@ -1,6 +1,8 @@
 <div align="center">
 
-<h1>🐦‍🔥<br>PhonicsFun!</h1>
+<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/1fab6.png" width="120" alt="Phoenix">
+
+<h1>PhonicsFun!</h1>
 
 **Learn sounds, words & blending**
 
