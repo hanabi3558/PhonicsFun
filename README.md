@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🔥🐦‍🔥 PhonicsFun!
+<h1>🐦‍🔥<br>PhonicsFun!</h1>
 
 **Learn sounds, words & blending**
 
