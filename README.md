@@ -1,12 +1,12 @@
 <div align="center">
 
-# 🐛 Phonics Fun!
+# 🔥🐦‍🔥 PhonicsFun!
 
 **Learn sounds, words & blending**
 
 An interactive phonics learning app for kids, covering Phase 1–6 of the UK phonics curriculum.
 
-[**Try it live**](https://hanabi3558.github.io/phonics-fun/)
+[**Try it live**](https://hanabi3558.github.io/PhonicsFun/)
 
 </div>
 
@@ -45,7 +45,7 @@ An interactive phonics learning app for kids, covering Phase 1–6 of the UK pho
 
 Just open `index.html` in a browser. No build step, no dependencies.
 
-Or visit the live version: https://hanabi3558.github.io/phonics-fun/
+Or visit the live version: https://hanabi3558.github.io/PhonicsFun/
 
 ## License
 
