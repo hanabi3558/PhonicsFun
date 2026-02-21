@@ -1,0 +1,1923 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Phonics Fun!</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --pink: #FF6B9D;
+      --purple: #C084FC;
+      --blue: #60A5FA;
+      --green: #34D399;
+      --yellow: #FBBF24;
+      --orange: #FB923C;
+      --red: #F87171;
+      --bg: #FFF7ED;
+      --text: #1E293B;
+      --text-light: #64748B;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .screen {
+      display: none;
+      min-height: 100vh;
+      padding: 16px;
+      padding-bottom: 40px;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding: 8px 0;
+    }
+
+    .back-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: white;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: var(--text);
+      transition: transform 0.15s;
+      flex-shrink: 0;
+    }
+
+    .back-btn:active {
+      transform: scale(0.9);
+    }
+
+    .header h2 {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    /* Home */
+    .home-title {
+      text-align: center;
+      padding: 24px 0 16px;
+    }
+
+    .home-title h1 {
+      font-size: 34px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--pink), var(--purple), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .home-title p {
+      color: var(--text-light);
+      font-size: 15px;
+      margin-top: 4px;
+    }
+
+    .home-title .mascot {
+      font-size: 56px;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .progress-overview {
+      background: white;
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    .progress-overview h3 {
+      font-size: 13px;
+      color: var(--text-light);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .progress-bar-container {
+      background: #E2E8F0;
+      border-radius: 12px;
+      height: 14px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 12px;
+      background: linear-gradient(90deg, var(--green), var(--blue));
+      transition: width 0.5s ease;
+    }
+
+    .progress-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--text-light);
+    }
+
+    .stars-display {
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    .section-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+
+    /* Phase Cards on Home */
+    .phase-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .phase-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: white;
+      border-radius: 16px;
+      padding: 14px 16px;
+      box-shadow: var(--shadow);
+      transition: transform 0.15s;
+    }
+
+    .phase-card:active {
+      transform: scale(0.97);
+    }
+
+    .phase-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 800;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .phase-info {
+      flex: 1;
+    }
+
+    .phase-info h3 {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .phase-info p {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-top: 1px;
+    }
+
+    .phase-arrow {
+      font-size: 18px;
+      color: #CBD5E1;
+    }
+
+    /* Phase colors */
+    .pc1 {
+      background: #F59E0B;
+    }
+
+    .pc2 {
+      background: #3B82F6;
+    }
+
+    .pc3 {
+      background: #22C55E;
+    }
+
+    .pc4 {
+      background: #A855F7;
+    }
+
+    .pc5 {
+      background: #EF4444;
+    }
+
+    .pc6 {
+      background: #0D9488;
+    }
+
+    /* Mode Cards */
+    .mode-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .mode-card {
+      background: white;
+      border-radius: 16px;
+      padding: 16px 12px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      transition: transform 0.15s;
+    }
+
+    .mode-card:active {
+      transform: scale(0.95);
+    }
+
+    .mode-card .icon {
+      font-size: 30px;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .mode-card .label {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* Phase Detail Screen */
+    .phase-detail-modes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .pd-mode {
+      background: white;
+      border-radius: 16px;
+      padding: 18px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: transform 0.15s;
+    }
+
+    .pd-mode:active {
+      transform: scale(0.95);
+    }
+
+    .pd-mode .icon {
+      font-size: 36px;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .pd-mode .label {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .pd-mode .desc {
+      font-size: 11px;
+      color: var(--text-light);
+      margin-top: 2px;
+    }
+
+    /* Flashcard */
+    .flashcard-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .card-counter {
+      font-size: 13px;
+      color: var(--text-light);
+      font-weight: 600;
+    }
+
+    .flashcard {
+      width: 100%;
+      max-width: 320px;
+      aspect-ratio: 3/4;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .flashcard-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.5s ease;
+    }
+
+    .flashcard.flipped .flashcard-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-front,
+    .flashcard-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-lg);
+      padding: 20px;
+    }
+
+    .flashcard-front {
+      background: linear-gradient(135deg, #667EEA, #764BA2);
+      color: white;
+    }
+
+    .flashcard-front .phonics {
+      font-size: 64px;
+      font-weight: 800;
+    }
+
+    .flashcard-front .tap-hint {
+      font-size: 13px;
+      opacity: 0.7;
+      margin-top: 12px;
+    }
+
+    .flashcard-back {
+      background: white;
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-back .emoji-big {
+      font-size: 64px;
+      margin-bottom: 10px;
+    }
+
+    .flashcard-back .word {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .flashcard-back .phonics-small {
+      font-size: 20px;
+      color: var(--purple);
+      font-weight: 700;
+      margin-top: 6px;
+    }
+
+    .card-nav {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .card-nav button {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: white;
+      box-shadow: var(--shadow);
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s;
+    }
+
+    .card-nav button:active {
+      transform: scale(0.9);
+    }
+
+    .card-nav button:disabled {
+      opacity: 0.3;
+    }
+
+    .learned-btn {
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 700;
+      transition: transform 0.15s, background 0.2s;
+    }
+
+    .learned-btn.not-learned {
+      background: #E2E8F0;
+      color: var(--text);
+    }
+
+    .learned-btn.is-learned {
+      background: var(--green);
+      color: white;
+    }
+
+    .learned-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Speaker Button */
+    .speak-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--yellow);
+      box-shadow: var(--shadow);
+      font-size: 24px;
+      transition: transform 0.15s;
+      flex-shrink: 0;
+    }
+
+    .speak-btn:active {
+      transform: scale(0.85);
+    }
+
+    .speak-btn.speaking {
+      animation: speakPulse 0.6s ease infinite;
+    }
+
+    @keyframes speakPulse {
+
+      0%,
+      100% {
+        transform: scale(1)
+      }
+
+      50% {
+        transform: scale(1.15)
+      }
+    }
+
+    .speak-btn-sm {
+      width: 40px;
+      height: 40px;
+      font-size: 20px;
+    }
+
+    .speak-row {
+      margin-top: 12px;
+    }
+
+    /* Quiz */
+    .quiz-area {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .quiz-progress {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 20px;
+    }
+
+    .quiz-dot {
+      flex: 1;
+      height: 5px;
+      border-radius: 3px;
+      background: #E2E8F0;
+      transition: background 0.3s;
+    }
+
+    .quiz-dot.correct {
+      background: var(--green);
+    }
+
+    .quiz-dot.wrong {
+      background: var(--red);
+    }
+
+    .quiz-dot.current {
+      background: var(--blue);
+    }
+
+    .quiz-prompt {
+      background: white;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .quiz-prompt .emoji-display {
+      font-size: 44px;
+      margin-bottom: 6px;
+    }
+
+    .quiz-prompt .main-text {
+      font-size: 38px;
+      font-weight: 800;
+      color: var(--purple);
+    }
+
+    .quiz-prompt .sub-text {
+      font-size: 14px;
+      color: var(--text-light);
+      margin-top: 8px;
+    }
+
+    .quiz-speak-row {
+      margin-top: 10px;
+    }
+
+    .quiz-choices {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .quiz-choice {
+      width: 100%;
+      padding: 16px 20px;
+      border-radius: 16px;
+      background: white;
+      box-shadow: var(--shadow);
+      font-size: 17px;
+      font-weight: 600;
+      text-align: left;
+      transition: transform 0.15s, background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .quiz-choice:active {
+      transform: scale(0.97);
+    }
+
+    .quiz-choice .choice-emoji {
+      font-size: 22px;
+    }
+
+    .quiz-choice.correct {
+      background: #DCFCE7;
+      color: #166534;
+    }
+
+    .quiz-choice.wrong {
+      background: #FEE2E2;
+      color: #991B1B;
+    }
+
+    .quiz-choice:disabled {
+      pointer-events: none;
+    }
+
+    /* Quiz Results */
+    .quiz-results {
+      text-align: center;
+      padding: 28px 16px;
+    }
+
+    .quiz-results .score-circle {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      font-weight: 800;
+      color: white;
+    }
+
+    .score-circle.great {
+      background: linear-gradient(135deg, var(--green), #06B6D4);
+    }
+
+    .score-circle.good {
+      background: linear-gradient(135deg, var(--yellow), var(--orange));
+    }
+
+    .score-circle.try-again {
+      background: linear-gradient(135deg, var(--orange), var(--red));
+    }
+
+    .score-circle small {
+      font-size: 13px;
+      font-weight: 600;
+      opacity: 0.9;
+    }
+
+    .quiz-results h2 {
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+
+    .quiz-results p {
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+
+    .quiz-results .actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 700;
+      transition: transform 0.15s;
+    }
+
+    .btn:active {
+      transform: scale(0.95);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #E2E8F0;
+      color: var(--text);
+    }
+
+    /* Match Game */
+    .match-header {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 16px;
+      background: white;
+      border-radius: 16px;
+      padding: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .match-stat {
+      text-align: center;
+    }
+
+    .match-stat .val {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--purple);
+    }
+
+    .match-stat .lbl {
+      font-size: 10px;
+      color: var(--text-light);
+      text-transform: uppercase;
+    }
+
+    .match-grid {
+      display: grid;
+      gap: 6px;
+    }
+
+    .match-grid.size-8 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .match-grid.size-12 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .match-grid.size-16 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .match-card {
+      aspect-ratio: 1;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4px;
+      transition: transform 0.3s;
+      transform-style: preserve-3d;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .match-card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4px;
+      word-break: break-word;
+    }
+
+    .match-card-back {
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: white;
+      font-size: 24px;
+    }
+
+    .match-card-front {
+      background: white;
+      box-shadow: var(--shadow);
+      transform: rotateY(180deg);
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .match-card-front .card-phonics {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--purple);
+    }
+
+    .match-card-front .card-word {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .match-card-front .card-emoji {
+      font-size: 20px;
+    }
+
+    .match-card.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .match-card.matched {
+      transform: rotateY(180deg);
+      opacity: 0.5;
+    }
+
+    .match-card.matched .match-card-front {
+      background: #DCFCE7;
+    }
+
+    .difficulty-select {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .diff-btn {
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      background: white;
+      box-shadow: var(--shadow);
+      color: var(--text);
+      transition: transform 0.15s;
+    }
+
+    .diff-btn:active {
+      transform: scale(0.95);
+    }
+
+    .diff-btn.active {
+      background: var(--purple);
+      color: white;
+    }
+
+    /* ===== BLENDING MODE ===== */
+    .blend-area {
+      max-width: 400px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .blend-word-display {
+      background: white;
+      border-radius: 20px;
+      padding: 24px 16px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    .blend-emoji {
+      font-size: 56px;
+      margin-bottom: 8px;
+    }
+
+    .blend-phonemes {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .blend-phoneme {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 52px;
+      height: 56px;
+      border-radius: 14px;
+      background: #EDE9FE;
+      color: var(--purple);
+      font-size: 24px;
+      font-weight: 800;
+      padding: 0 12px;
+      transition: transform 0.15s, background 0.2s;
+      cursor: pointer;
+    }
+
+    .blend-phoneme:active {
+      transform: scale(0.9);
+    }
+
+    .blend-phoneme.highlight {
+      background: var(--purple);
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .blend-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: var(--text-light);
+      margin: 12px 0;
+    }
+
+    .blend-full-word {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--text);
+      padding: 12px 0;
+      opacity: 0.3;
+      transition: opacity 0.3s;
+    }
+
+    .blend-full-word.revealed {
+      opacity: 1;
+    }
+
+    .blend-controls {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .blend-btn {
+      padding: 14px 24px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 700;
+      transition: transform 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .blend-btn:active {
+      transform: scale(0.95);
+    }
+
+    .blend-btn-sound {
+      background: var(--yellow);
+      color: var(--text);
+    }
+
+    .blend-btn-blend {
+      background: linear-gradient(135deg, var(--green), #06B6D4);
+      color: white;
+    }
+
+    .blend-btn-next {
+      background: var(--purple);
+      color: white;
+    }
+
+    .blend-counter {
+      font-size: 13px;
+      color: var(--text-light);
+      margin-bottom: 12px;
+    }
+
+    .blend-speed {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .speed-btn {
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      background: #F1F5F9;
+      color: var(--text-light);
+      transition: all 0.15s;
+    }
+
+    .speed-btn.active {
+      background: var(--blue);
+      color: white;
+    }
+
+    /* Celebration */
+    .celebration {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .celebration.active {
+      display: flex;
+    }
+
+    .celebration-content {
+      background: white;
+      border-radius: 24px;
+      padding: 36px;
+      text-align: center;
+      max-width: 300px;
+      box-shadow: var(--shadow-lg);
+      animation: popIn 0.4s ease;
+    }
+
+    @keyframes popIn {
+      0% {
+        transform: scale(0.5);
+        opacity: 0
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1
+      }
+    }
+
+    .celebration-content .trophy {
+      font-size: 64px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .celebration-content h2 {
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+
+    .celebration-content p {
+      color: var(--text-light);
+      margin-bottom: 16px;
+    }
+
+    .confetti-piece {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      z-index: 101;
+      pointer-events: none;
+      animation: confettiFall 2s ease-out forwards;
+    }
+
+    @keyframes confettiFall {
+      0% {
+        transform: translateY(0) rotate(0);
+        opacity: 1
+      }
+
+      100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HOME -->
+  <div id="home-screen" class="screen active">
+    <div class="home-title">
+      <span class="mascot">🐛</span>
+      <h1>Phonics Fun!</h1>
+      <p>Learn sounds, words &amp; blending</p>
+    </div>
+    <div class="progress-overview">
+      <h3>My Progress</h3>
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="overall-progress" style="width:0%"></div>
+      </div>
+      <div class="progress-stats"><span id="learned-count">0 learned</span><span id="progress-pct">0%</span></div>
+      <div class="stars-display" id="stars-display"></div>
+    </div>
+    <div class="section-label">Phases</div>
+    <div class="phase-grid" id="phase-grid"></div>
+  </div>
+
+  <!-- PHASE DETAIL -->
+  <div id="phase-screen" class="screen">
+    <div class="header">
+      <button class="back-btn" onclick="showScreen('home-screen')">‹</button>
+      <h2 id="phase-title">Phase 1</h2>
+    </div>
+    <div class="phase-detail-modes" id="phase-modes"></div>
+  </div>
+
+  <!-- FLASHCARD -->
+  <div id="learn-screen" class="screen">
+    <div class="header">
+      <button class="back-btn" onclick="goBackFromMode()">‹</button>
+      <h2 id="learn-title">Learn</h2>
+    </div>
+    <div class="flashcard-area">
+      <div class="card-counter" id="card-counter">1 / 26</div>
+      <div class="flashcard" id="flashcard" onclick="flipCard()">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">
+            <div class="phonics" id="fc-phonics">a</div>
+            <div class="speak-row"><button class="speak-btn" onclick="event.stopPropagation();speakPhonics()"
+                title="Listen">🔊</button></div>
+            <div class="tap-hint">Tap to flip</div>
+          </div>
+          <div class="flashcard-back">
+            <div class="emoji-big" id="fc-emoji">🍎</div>
+            <div class="word" id="fc-word">apple</div>
+            <div class="phonics-small" id="fc-phonics-back">a</div>
+            <div class="speak-row"><button class="speak-btn" onclick="event.stopPropagation();speakWord()"
+                title="Listen">🔊</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-nav">
+        <button id="prev-btn" onclick="prevCard()">‹</button>
+        <button class="learned-btn not-learned" id="learned-btn" onclick="toggleLearned()">☆ Learn</button>
+        <button id="next-btn" onclick="nextCard()">›</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz-screen" class="screen">
+    <div class="header">
+      <button class="back-btn" onclick="goBackFromMode()">‹</button>
+      <h2 id="quiz-title">Quiz</h2>
+    </div>
+    <div class="quiz-area">
+      <div class="quiz-progress" id="quiz-progress"></div>
+      <div class="quiz-prompt">
+        <div class="emoji-display" id="quiz-emoji"></div>
+        <div class="main-text" id="quiz-main"></div>
+        <div class="quiz-speak-row"><button class="speak-btn" id="quiz-speak-btn"
+            onclick="speakQuizPrompt()">🔊</button></div>
+        <div class="sub-text" id="quiz-sub"></div>
+      </div>
+      <div class="quiz-choices" id="quiz-choices"></div>
+    </div>
+  </div>
+
+  <!-- QUIZ RESULTS -->
+  <div id="quiz-results-screen" class="screen">
+    <div class="header">
+      <button class="back-btn" onclick="goBackFromMode()">‹</button>
+      <h2>Results</h2>
+    </div>
+    <div class="quiz-results">
+      <div class="score-circle" id="result-circle"><span id="result-score">0</span><small id="result-total">/ 10</small>
+      </div>
+      <h2 id="result-heading">Great Job!</h2>
+      <p id="result-message"></p>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="restartQuiz()">Try Again</button>
+        <button class="btn btn-secondary" onclick="goBackFromMode()">Back</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MATCH GAME -->
+  <div id="match-screen" class="screen">
+    <div class="header">
+      <button class="back-btn" onclick="goBackFromMode()">‹</button>
+      <h2 id="match-title">Match</h2>
+    </div>
+    <div class="difficulty-select">
+      <button class="diff-btn active" onclick="setMatchDifficulty(4,this)">Easy (4)</button>
+      <button class="diff-btn" onclick="setMatchDifficulty(6,this)">Medium (6)</button>
+      <button class="diff-btn" onclick="setMatchDifficulty(8,this)">Hard (8)</button>
+    </div>
+    <div class="match-header">
+      <div class="match-stat">
+        <div class="val" id="match-moves">0</div>
+        <div class="lbl">Moves</div>
+      </div>
+      <div class="match-stat">
+        <div class="val" id="match-pairs">0/4</div>
+        <div class="lbl">Pairs</div>
+      </div>
+      <div class="match-stat">
+        <div class="val" id="match-timer">0:00</div>
+        <div class="lbl">Time</div>
+      </div>
+    </div>
+    <div class="match-grid" id="match-grid"></div>
+  </div>
+
+  <!-- BLENDING -->
+  <div id="blend-screen" class="screen">
+    <div class="header">
+      <button class="back-btn" onclick="goBackFromMode()">‹</button>
+      <h2 id="blend-title">Blending</h2>
+    </div>
+    <div class="blend-area">
+      <div class="blend-counter" id="blend-counter">1 / 10</div>
+      <div class="blend-word-display">
+        <div class="blend-emoji" id="blend-emoji">🐱</div>
+        <div class="blend-phonemes" id="blend-phonemes"></div>
+        <div class="blend-arrow">⬇️</div>
+        <div class="blend-full-word" id="blend-full-word">cat</div>
+      </div>
+      <div class="blend-controls">
+        <button class="blend-btn blend-btn-sound" onclick="playSoundOut()">🔊 Sound Out</button>
+        <button class="blend-btn blend-btn-blend" onclick="playBlend()">✨ Blend It!</button>
+      </div>
+      <div class="blend-controls">
+        <button class="blend-btn btn-secondary" id="blend-prev" onclick="prevBlend()">‹ Prev</button>
+        <button class="blend-btn blend-btn-next" id="blend-next" onclick="nextBlend()">Next ›</button>
+      </div>
+      <div class="blend-speed">
+        <button class="speed-btn" onclick="setBlendSpeed('slow',this)">🐢 Slow</button>
+        <button class="speed-btn active" onclick="setBlendSpeed('normal',this)">🐇 Normal</button>
+        <button class="speed-btn" onclick="setBlendSpeed('fast',this)">⚡ Fast</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CELEBRATION -->
+  <div class="celebration" id="celebration">
+    <div class="celebration-content">
+      <span class="trophy">🏆</span>
+      <h2 id="celeb-title">Amazing!</h2>
+      <p id="celeb-msg"></p>
+      <button class="btn btn-primary" onclick="closeCelebration()">Continue</button>
+    </div>
+  </div>
+
+  <script>
+    // ========================
+    // PHONICS DATA - Phase 1-6
+    // ========================
+    const phases = {
+      1: {
+        name: "Phase 1 - Alphabet Sounds",
+        desc: "26 letter sounds a-z",
+        color: "#F59E0B",
+        items: [
+          { p: "a", w: "apple", e: "🍎" }, { p: "b", w: "ball", e: "⚽" }, { p: "c", w: "car", e: "🚗" },
+          { p: "d", w: "dog", e: "🐶" }, { p: "e", w: "egg", e: "🥚" }, { p: "f", w: "fox", e: "🦊" },
+          { p: "g", w: "gate", e: "🚪" }, { p: "h", w: "heart", e: "❤️" }, { p: "i", w: "ink", e: "🖊️" },
+          { p: "j", w: "jelly", e: "🍮" }, { p: "k", w: "kangaroo", e: "🦘" }, { p: "l", w: "leaf", e: "🍃" },
+          { p: "m", w: "monkey", e: "🐒" }, { p: "n", w: "nest", e: "🪹" }, { p: "o", w: "orange", e: "🍊" },
+          { p: "p", w: "pig", e: "🐷" }, { p: "q", w: "queen", e: "👑" }, { p: "r", w: "robot", e: "🤖" },
+          { p: "s", w: "sun", e: "☀️" }, { p: "t", w: "tiger", e: "🐯" }, { p: "u", w: "umbrella", e: "☂️" },
+          { p: "v", w: "van", e: "🚐" }, { p: "w", w: "watch", e: "⌚" }, { p: "x", w: "fox", e: "🦊" },
+          { p: "y", w: "yoyo", e: "🪀" }, { p: "z", w: "zebra", e: "🦓" }
+        ],
+        blendWords: [
+          { w: "cat", ph: ["c", "a", "t"], e: "🐱" }, { w: "dog", ph: ["d", "o", "g"], e: "🐶" },
+          { w: "pig", ph: ["p", "i", "g"], e: "🐷" }, { w: "sun", ph: ["s", "u", "n"], e: "☀️" },
+          { w: "hat", ph: ["h", "a", "t"], e: "🎩" }, { w: "bed", ph: ["b", "e", "d"], e: "🛏️" },
+          { w: "fox", ph: ["f", "o", "x"], e: "🦊" }, { w: "jam", ph: ["j", "a", "m"], e: "🫙" },
+          { w: "log", ph: ["l", "o", "g"], e: "🪵" }, { w: "nut", ph: ["n", "u", "t"], e: "🥜" },
+          { w: "map", ph: ["m", "a", "p"], e: "🗺️" }, { w: "van", ph: ["v", "a", "n"], e: "🚐" },
+          { w: "zip", ph: ["z", "i", "p"], e: "🤐" }, { w: "wet", ph: ["w", "e", "t"], e: "💧" },
+          { w: "red", ph: ["r", "e", "d"], e: "🔴" }
+        ]
+      },
+      2: {
+        name: "Phase 2 - Phonics Sounds",
+        desc: "s a t p i n m d g o c k ck e u r h b f ff l ll ss",
+        color: "#3B82F6",
+        items: [
+          { p: "s", w: "strawberry", e: "🍓" }, { p: "a", w: "apple", e: "🍎" }, { p: "t", w: "tiger", e: "🐯" },
+          { p: "p", w: "pig", e: "🐷" }, { p: "i", w: "igloo", e: "🏠" }, { p: "n", w: "nest", e: "🪹" },
+          { p: "m", w: "mouse", e: "🐭" }, { p: "d", w: "dog", e: "🐶" }, { p: "g", w: "gate", e: "🚪" },
+          { p: "o", w: "orange", e: "🍊" }, { p: "c", w: "cat", e: "🐱" }, { p: "k", w: "key", e: "🔑" },
+          { p: "ck", w: "duck", e: "🦆" }, { p: "e", w: "elephant", e: "🐘" }, { p: "u", w: "umbrella", e: "☂️" },
+          { p: "r", w: "robot", e: "🤖" }, { p: "h", w: "heart", e: "❤️" }, { p: "b", w: "balloon", e: "🎈" },
+          { p: "f", w: "fish", e: "🐟" }, { p: "ff", w: "muffin", e: "🧁" }, { p: "l", w: "leaf", e: "🍃" },
+          { p: "ll", w: "ball", e: "⚽" }, { p: "ss", w: "glass", e: "🥛" }
+        ],
+        blendWords: [
+          { w: "sat", ph: ["s", "a", "t"], e: "🪑" }, { w: "pin", ph: ["p", "i", "n"], e: "📌" },
+          { w: "tip", ph: ["t", "i", "p"], e: "💡" }, { w: "man", ph: ["m", "a", "n"], e: "👨" },
+          { w: "dog", ph: ["d", "o", "g"], e: "🐶" }, { w: "got", ph: ["g", "o", "t"], e: "✅" },
+          { w: "cup", ph: ["c", "u", "p"], e: "☕" }, { w: "hug", ph: ["h", "u", "g"], e: "🤗" },
+          { w: "bug", ph: ["b", "u", "g"], e: "🐛" }, { w: "rub", ph: ["r", "u", "b"], e: "🧽" },
+          { w: "back", ph: ["b", "a", "ck"], e: "⬅️" }, { w: "duck", ph: ["d", "u", "ck"], e: "🦆" },
+          { w: "miss", ph: ["m", "i", "ss"], e: "💨" }, { w: "huff", ph: ["h", "u", "ff"], e: "💨" },
+          { w: "bell", ph: ["b", "e", "ll"], e: "🔔" }
+        ]
+      },
+      3: {
+        name: "Phase 3 - Digraphs & Vowels",
+        desc: "ch sh th ng ai ee igh oa oo ar or ur ow oi ear air ure er",
+        color: "#22C55E",
+        items: [
+          { p: "ai", w: "rainbow", e: "🌈" }, { p: "air", w: "chair", e: "🪑" }, { p: "ar", w: "car", e: "🚗" },
+          { p: "ch", w: "chips", e: "🍟" }, { p: "ear", w: "beard", e: "🧔" }, { p: "ee", w: "sheep", e: "🐑" },
+          { p: "er", w: "rubber", e: "🧹" }, { p: "igh", w: "night", e: "🌙" }, { p: "j", w: "jelly", e: "🍮" },
+          { p: "ng", w: "ring", e: "💍" }, { p: "oa", w: "boat", e: "⛵" }, { p: "oi", w: "coin", e: "🪙" },
+          { p: "oo", w: "moon", e: "🌙", l: "oo (long)" }, { p: "oo", w: "book", e: "📖", l: "oo (short)" },
+          { p: "or", w: "fork", e: "🍴" }, { p: "ow", w: "cow", e: "🐄" }, { p: "qu", w: "queen", e: "👑" },
+          { p: "sh", w: "shoe", e: "👟" }, { p: "th", w: "thumb", e: "👍" }, { p: "ur", w: "burger", e: "🍔" },
+          { p: "ure", w: "treasure", e: "💎" }, { p: "v", w: "van", e: "🚐" }, { p: "w", w: "watch", e: "⌚" },
+          { p: "x", w: "fox", e: "🦊" }, { p: "y", w: "yellow", e: "💛" }, { p: "z", w: "zebra", e: "🦓" },
+          { p: "zz", w: "buzz", e: "🐝" }
+        ],
+        blendWords: [
+          { w: "chip", ph: ["ch", "i", "p"], e: "🍟" }, { w: "shop", ph: ["sh", "o", "p"], e: "🛒" },
+          { w: "thin", ph: ["th", "i", "n"], e: "📏" }, { w: "ring", ph: ["r", "i", "ng"], e: "💍" },
+          { w: "rain", ph: ["r", "ai", "n"], e: "🌧️" }, { w: "sheep", ph: ["sh", "ee", "p"], e: "🐑" },
+          { w: "night", ph: ["n", "igh", "t"], e: "🌙" }, { w: "boat", ph: ["b", "oa", "t"], e: "⛵" },
+          { w: "moon", ph: ["m", "oo", "n"], e: "🌙" }, { w: "book", ph: ["b", "oo", "k"], e: "📖" },
+          { w: "car", ph: ["c", "ar"], e: "🚗" }, { w: "fork", ph: ["f", "or", "k"], e: "🍴" },
+          { w: "coin", ph: ["c", "oi", "n"], e: "🪙" }, { w: "cow", ph: ["c", "ow"], e: "🐄" },
+          { w: "chair", ph: ["ch", "air"], e: "🪑" }
+        ]
+      },
+      4: {
+        name: "Phase 4 - Consonant Clusters",
+        desc: "st nd mp nt nk ft sk lt lp lf lk pt xt tr dr gr cr br fr bl fl gl pl cl sl sp tw sm pr sc sk sn nch scr shr thr str",
+        color: "#A855F7",
+        items: [
+          { p: "st", w: "starfish", e: "⭐" }, { p: "nd", w: "hand", e: "✋" }, { p: "mp", w: "lamp", e: "💡" },
+          { p: "nt", w: "tent", e: "⛺" }, { p: "nk", w: "sink", e: "🚰" }, { p: "ft", w: "gift", e: "🎁" },
+          { p: "sk", w: "tusk", e: "🐘" }, { p: "lt", w: "belt", e: "👔" }, { p: "lp", w: "help", e: "🆘" },
+          { p: "lf", w: "shelf", e: "📚" }, { p: "lk", w: "milk", e: "🥛" }, { p: "pt", w: "receipt", e: "🧾" },
+          { p: "xt", w: "text", e: "📱" }, { p: "tr", w: "tree", e: "🌳" }, { p: "dr", w: "dragon", e: "🐉" },
+          { p: "gr", w: "grass", e: "🌿" }, { p: "cr", w: "crown", e: "👑" }, { p: "br", w: "brush", e: "🖌️" },
+          { p: "fr", w: "frog", e: "🐸" }, { p: "bl", w: "blackberry", e: "🫐" }, { p: "fl", w: "flower", e: "🌸" },
+          { p: "gl", w: "glasses", e: "👓" }, { p: "pl", w: "plane", e: "✈️" }, { p: "cl", w: "clown", e: "🤡" },
+          { p: "sl", w: "sleep", e: "😴" }, { p: "sp", w: "spoon", e: "🥄" }, { p: "tw", w: "twins", e: "👯" },
+          { p: "sm", w: "smile", e: "😊" }, { p: "pr", w: "pram", e: "🍼" }, { p: "sc", w: "scarf", e: "🧣" },
+          { p: "sn", w: "snail", e: "🐌" }, { p: "nch", w: "bench", e: "🪑" }, { p: "scr", w: "screw", e: "🔩" },
+          { p: "shr", w: "shrimp", e: "🦐" }, { p: "thr", w: "throw", e: "🤾" }, { p: "str", w: "string", e: "🧵" }
+        ],
+        blendWords: [
+          { w: "stop", ph: ["st", "o", "p"], e: "🛑" }, { w: "hand", ph: ["h", "a", "nd"], e: "✋" },
+          { w: "lamp", ph: ["l", "a", "mp"], e: "💡" }, { w: "tent", ph: ["t", "e", "nt"], e: "⛺" },
+          { w: "sink", ph: ["s", "i", "nk"], e: "🚰" }, { w: "gift", ph: ["g", "i", "ft"], e: "🎁" },
+          { w: "tree", ph: ["tr", "ee"], e: "🌳" }, { w: "drum", ph: ["dr", "u", "m"], e: "🥁" },
+          { w: "frog", ph: ["fr", "o", "g"], e: "🐸" }, { w: "grass", ph: ["gr", "a", "ss"], e: "🌿" },
+          { w: "clap", ph: ["cl", "a", "p"], e: "👏" }, { w: "flag", ph: ["fl", "a", "g"], e: "🏳️" },
+          { w: "snail", ph: ["sn", "ai", "l"], e: "🐌" }, { w: "spoon", ph: ["sp", "oo", "n"], e: "🥄" },
+          { w: "string", ph: ["str", "i", "ng"], e: "🧵" }
+        ]
+      },
+      5: {
+        name: "Phase 5 - Advanced Vowels",
+        desc: "ay ou ie ea oy ir ue aw wh ph ew oe au ey a_e e_e i_e o_e u_e",
+        color: "#EF4444",
+        items: [
+          { p: "ay", w: "crayons", e: "🖍️" }, { p: "ou", w: "cloud", e: "☁️" }, { p: "ie", w: "pie", e: "🥧" },
+          { p: "ea", w: "beans", e: "🫘" }, { p: "oy", w: "boy", e: "👦" }, { p: "ir", w: "girl", e: "👧" },
+          { p: "ue", w: "glue", e: "🧴" }, { p: "aw", w: "saw", e: "🪚" }, { p: "wh", w: "whale", e: "🐋" },
+          { p: "ph", w: "trophy", e: "🏆" }, { p: "ew", w: "screw", e: "🔩" }, { p: "oe", w: "toe", e: "🦶" },
+          { p: "au", w: "sauce", e: "🥫" }, { p: "ey", w: "money", e: "💰" }, { p: "a_e", w: "cake", e: "🎂" },
+          { p: "e_e", w: "sleeve", e: "👕" }, { p: "i_e", w: "slide", e: "🛝" }, { p: "o_e", w: "bone", e: "🦴" },
+          { p: "u_e", w: "cube", e: "🧊" }
+        ],
+        blendWords: [
+          { w: "play", ph: ["pl", "ay"], e: "🎮" }, { w: "cloud", ph: ["cl", "ou", "d"], e: "☁️" },
+          { w: "pie", ph: ["p", "ie"], e: "🥧" }, { w: "bean", ph: ["b", "ea", "n"], e: "🫘" },
+          { w: "boy", ph: ["b", "oy"], e: "👦" }, { w: "girl", ph: ["g", "ir", "l"], e: "👧" },
+          { w: "blue", ph: ["bl", "ue"], e: "🔵" }, { w: "draw", ph: ["dr", "aw"], e: "🎨" },
+          { w: "whale", ph: ["wh", "a_e", "l"], e: "🐋" }, { w: "phone", ph: ["ph", "o_e", "n"], e: "📱" },
+          { w: "cake", ph: ["c", "a_e", "k"], e: "🎂" }, { w: "slide", ph: ["sl", "i_e", "d"], e: "🛝" },
+          { w: "bone", ph: ["b", "o_e", "n"], e: "🦴" }, { w: "cube", ph: ["c", "u_e", "b"], e: "🧊" },
+          { w: "new", ph: ["n", "ew"], e: "✨" }
+        ]
+      },
+      6: {
+        name: "Phase 6 - Tricky Patterns",
+        desc: "y dge ge gn kn wr le eer ture mb al a o ey war wor s wa qua tion",
+        color: "#0D9488",
+        items: [
+          { p: "y", w: "fly", e: "🪰", l: "y (as ee/eye)" }, { p: "dge", w: "bridge", e: "🌉" },
+          { p: "ge", w: "fringe", e: "👧" }, { p: "gn", w: "gnome", e: "🧙" }, { p: "kn", w: "knife", e: "🔪" },
+          { p: "wr", w: "wrist", e: "⌚" }, { p: "le", w: "table", e: "🪑" }, { p: "eer", w: "deer", e: "🦌" },
+          { p: "ture", w: "picture", e: "🖼️" }, { p: "mb", w: "thumb", e: "👍" }, { p: "al", w: "walk", e: "🚶" },
+          { p: "a", w: "walnut", e: "🥜", l: "a (as o)" }, { p: "o", w: "glove", e: "🧤", l: "o (as u)" },
+          { p: "ey", w: "monkey", e: "🐒", l: "ey (as ee)" }, { p: "war", w: "warm", e: "🌡️" },
+          { p: "wor", w: "world", e: "🌍" }, { p: "s", w: "treasure", e: "💎", l: "s (as zh)" },
+          { p: "wa", w: "watch", e: "⌚" }, { p: "qua", w: "squash", e: "🎾" }, { p: "tion", w: "station", e: "🚉" }
+        ],
+        blendWords: [
+          { w: "fly", ph: ["fl", "y"], e: "🪰" }, { w: "bridge", ph: ["br", "i", "dge"], e: "🌉" },
+          { w: "knife", ph: ["kn", "i_e", "f"], e: "🔪" }, { w: "write", ph: ["wr", "i_e", "t"], e: "✍️" },
+          { w: "table", ph: ["t", "a_e", "b", "le"], e: "🪑" }, { w: "thumb", ph: ["th", "u", "mb"], e: "👍" },
+          { w: "walk", ph: ["w", "al", "k"], e: "🚶" }, { w: "warm", ph: ["w", "ar", "m"], e: "🌡️" },
+          { w: "world", ph: ["w", "or", "l", "d"], e: "🌍" }, { w: "watch", ph: ["w", "a", "tch"], e: "⌚" },
+          { w: "gnome", ph: ["gn", "o_e", "m"], e: "🧙" }, { w: "station", ph: ["st", "a", "tion"], e: "🚉" },
+          { w: "picture", ph: ["p", "i", "c", "ture"], e: "🖼️" }, { w: "squash", ph: ["s", "qua", "sh"], e: "🎾" },
+          { w: "monkey", ph: ["m", "u", "n", "k", "ey"], e: "🐒" }
+        ]
+      }
+    };
+
+    // Assign IDs and labels
+    let _id = 0;
+    for (const [phaseNum, phase] of Object.entries(phases)) {
+      for (const item of phase.items) {
+        item.id = `p${phaseNum}_${_id++}`;
+        if (!item.l) item.l = item.p;
+      }
+    }
+
+    // ===== STATE =====
+    let progress = loadProgress();
+    let currentPhase = null;
+    let currentMode = null;
+    let currentItems = [];
+    let cardIndex = 0;
+    let quizQuestions = [], quizIndex = 0, quizScore = 0, quizAnswered = false;
+    let matchPairCount = 4, matchCards = [], matchFlipped = [], matchMatched = 0, matchMoves = 0, matchTimer = null, matchSeconds = 0, matchLocked = false;
+    let blendWords = [], blendIndex = 0, blendSpeed = 'normal';
+
+    // ===== PROGRESS =====
+    function loadProgress() {
+      try { return JSON.parse(localStorage.getItem('phonics_v2')) || { learned: {}, quizHighScores: {}, stars: 0 }; }
+      catch { return { learned: {}, quizHighScores: {}, stars: 0 }; }
+    }
+    function saveProgress() { localStorage.setItem('phonics_v2', JSON.stringify(progress)); updateProgressUI(); }
+
+    function updateProgressUI() {
+      let total = 0, learned = 0;
+      for (const phase of Object.values(phases)) {
+        total += phase.items.length;
+        learned += phase.items.filter(i => progress.learned[i.id]).length;
+      }
+      const pct = total ? Math.round((learned / total) * 100) : 0;
+      document.getElementById('overall-progress').style.width = pct + '%';
+      document.getElementById('learned-count').textContent = learned + ' learned';
+      document.getElementById('progress-pct').textContent = pct + '%';
+      const s = progress.stars || 0;
+      document.getElementById('stars-display').textContent = s > 0 ? '⭐'.repeat(Math.min(s, 20)) : '';
+    }
+
+    // ===== BUILD HOME SCREEN =====
+    function buildPhaseGrid() {
+      const grid = document.getElementById('phase-grid');
+      grid.innerHTML = '';
+      for (const [num, phase] of Object.entries(phases)) {
+        const learned = phase.items.filter(i => progress.learned[i.id]).length;
+        const btn = document.createElement('button');
+        btn.className = 'phase-card';
+        btn.onclick = () => openPhase(Number(num));
+        btn.innerHTML = `
+      <div class="phase-badge pc${num}">${num}</div>
+      <div class="phase-info">
+        <h3>${phase.name}</h3>
+        <p>${learned}/${phase.items.length} learned</p>
+      </div>
+      <span class="phase-arrow">›</span>`;
+        grid.appendChild(btn);
+      }
+    }
+
+    // ===== NAVIGATION =====
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      if (id === 'home-screen') { updateProgressUI(); buildPhaseGrid(); if (matchTimer) { clearInterval(matchTimer); matchTimer = null; } }
+    }
+
+    function openPhase(num) {
+      currentPhase = num;
+      const phase = phases[num];
+      document.getElementById('phase-title').textContent = phase.name;
+      const modes = document.getElementById('phase-modes');
+      modes.innerHTML = `
+    <button class="pd-mode" onclick="startLearn()"><span class="icon">📚</span><span class="label">Flashcards</span><span class="desc">Learn each sound</span></button>
+    <button class="pd-mode" onclick="startQuiz()"><span class="icon">❓</span><span class="label">Quiz</span><span class="desc">Test your knowledge</span></button>
+    <button class="pd-mode" onclick="startMatch()"><span class="icon">🃏</span><span class="label">Match</span><span class="desc">Find the pairs</span></button>
+    <button class="pd-mode" onclick="startBlend()"><span class="icon">🔤</span><span class="label">Blending</span><span class="desc">Sound out words</span></button>`;
+      showScreen('phase-screen');
+    }
+
+    function goBackFromMode() {
+      if (matchTimer) { clearInterval(matchTimer); matchTimer = null; }
+      if (currentPhase) openPhase(currentPhase);
+      else showScreen('home-screen');
+    }
+
+    // ===== SPEECH (Web Speech API) =====
+    // Maps phoneme labels to readable text that approximates the isolated phoneme sound.
+    const phonicsText = {
+      // === Short vowels ===
+      'a': 'ah',    'e': 'eh',    'i': 'ill',    'o': 'oh',    'u': 'uh',
+
+      // === Consonants ===
+      'b': 'buh',   'c': 'kuh',   'd': 'duh',   'f': 'fuh',   'g': 'guh',
+      'h': 'huh',   'j': 'juh',   'k': 'kuh',   'l': 'luh',   'm': 'muh',
+      'n': 'nuh',   'p': 'puh',   'q': 'quick',  'r': 'ruh',   's': 'suh',
+      't': 'tuh',   'v': 'vuh',   'w': 'wuh',   'x': 'ex',    'y': 'yuh',
+      'z': 'zei',
+
+      // === Phase 2: Double letters ===
+      'ck': 'kuh',  'ff': 'fuh',  'll': 'luh',  'ss': 'suh',
+
+      // === Phase 3: Consonant digraphs ===
+      'ch': 'chuh', 'sh': 'shuh', 'th': 'thuh', 'ng': 'ung',  'qu': 'quuh', 'zz': 'zei',
+
+      // === Phase 3: Vowel digraphs & r-controlled vowels ===
+      'ai': 'ay',   'ee': 'ee',   'igh': 'eye', 'oa': 'oh',
+      'oi': 'oy',   'oo': 'oo',   'oo (long)': 'oo',  'oo (short)': 'oo',
+      'ar': 'ar',   'or': 'or',   'ur': 'er',   'ow': 'ow',
+      'ear': 'ear', 'air': 'air', 'ure': 'er',  'er': 'er',
+
+      // === Phase 4: Consonant clusters (initial) ===
+      'tr': 'truh', 'dr': 'druh', 'gr': 'gruh', 'cr': 'cruh',
+      'br': 'bruh', 'fr': 'fruh', 'bl': 'bluh', 'fl': 'fluh',
+      'gl': 'gluh', 'pl': 'pluh', 'cl': 'cluh', 'sl': 'sluh',
+      'sp': 'sper', 'tw': 'twuh', 'sm': 'smur', 'pr': 'pruh',
+      'sc': 'skuh', 'sn': 'sner', 'st': 'stuh', 'sw': 'swuh', 'dw': 'dwuh',
+      'scr': 'scruh', 'shr': 'shruh', 'thr': 'thruh', 'str': 'struh',
+      // Phase 4: Consonant clusters (final)
+      'nd': 'und',   'mp': 'ump',  'nt': 'unt',  'nk': 'ink',   'ft': 'oft',
+      'sk': 'usk',   'lt': 'ult',  'lp': 'elp',  'lf': 'ulf',  'lk': 'ilk',
+      'pt': 'upt',  'xt': 'ext', 'nch': 'ench',
+
+      // === Phase 5: Advanced vowel sounds ===
+      'ay': 'ay',   'ou': 'ow',   'ie': 'eye',  'ea': 'ee',   'oy': 'oy',
+      'ir': 'er',   'ue': 'oo',   'aw': 'aw',   'wh': 'wuh',  'ph': 'fuh',
+      'ew': 'oo',   'oe': 'oh',   'au': 'aw',   'ey': 'ee',
+      'a_e': 'ay',  'e_e': 'ee',  'i_e': 'eye', 'o_e': 'oh',  'u_e': 'you',
+
+      // === Phase 6: Tricky patterns ===
+      'dge': 'gee', 'ge': 'juh',  'gn': 'nuh',  'kn': 'nuh',  'wr': 'ruh',
+      'le': 'ul',   'eer': 'ear', 'ture': 'chuur','mb': 'muh',
+      'al': 'awl',  'war': 'wor', 'wor': 'wo', 'wa': 'wah',  'qua': 'kwah',
+      'tion': 'shun','tch': 'chuh',
+
+      // === Alternates ===
+      'y (as ee/eye)': 'eye', 'a (as o)': 'ah', 'o (as u)': 'uh',
+      'ey (as ee)': 'ee',     's (as zh)': 'sher'
+    };
+
+    // === Audio: MP3 for phonics sounds, Web Speech API for words ===
+
+    // -- MP3 Phonics Sound Player --
+    const _soundFileMap = {
+      'oo (long)': 'oo_long', 'oo (short)': 'oo_short',
+      'y (as ee/eye)': 'y_as_ee_eye', 'a (as o)': 'a_as_o',
+      'o (as u)': 'o_as_u', 'ey (as ee)': 'ey_as_ee', 's (as zh)': 's_as_zh'
+    };
+    let _currentAudio = null;
+
+    function _labelToFile(label) {
+      if (_soundFileMap[label]) return _soundFileMap[label];
+      return (label || '').toLowerCase().replace(/[\s()\/]/g, '_');
+    }
+
+    function _playMp3(label, onEnd) {
+      if (_currentAudio) { _currentAudio.pause(); _currentAudio = null; }
+      _synth.cancel();
+      const file = _labelToFile(label);
+      const audio = new Audio('sounds/' + file + '.mp3');
+      _currentAudio = audio;
+      _setBtnSpeaking(true);
+      audio.onended = () => { _currentAudio = null; _setBtnSpeaking(false); if (onEnd) onEnd(); };
+      audio.onerror = () => {
+        _currentAudio = null; _setBtnSpeaking(false);
+        // fallback to Web Speech API if mp3 not found
+        const txt = phonicsText[label] || phonicsText[(label || '').toLowerCase()] || label;
+        _speakRaw(txt, 0.75, onEnd);
+      };
+      audio.play();
+    }
+
+    // -- Web Speech API (for words) --
+    const _synth = window.speechSynthesis;
+    let _preferredVoice = null;
+
+    function _initVoice() {
+      const voices = _synth.getVoices();
+      _preferredVoice =
+        voices.find(v => v.lang === 'en-GB') ||
+        voices.find(v => v.lang.startsWith('en-US')) ||
+        voices.find(v => v.lang.startsWith('en')) ||
+        null;
+    }
+    if (_synth.onvoiceschanged !== undefined) _synth.onvoiceschanged = _initVoice;
+    _initVoice();
+
+    function _stopCurrent() {
+      _synth.cancel();
+      if (_currentAudio) { _currentAudio.pause(); _currentAudio = null; }
+    }
+
+    function _setBtnSpeaking(on) {
+      document.querySelectorAll('.speak-btn').forEach(b => {
+        if (b.offsetParent !== null) b.classList.toggle('speaking', on);
+      });
+    }
+
+    function _speakRaw(text, rate, onEnd) {
+      _synth.cancel();
+      if (_currentAudio) { _currentAudio.pause(); _currentAudio = null; }
+      setTimeout(() => {
+        const u = new SpeechSynthesisUtterance(text);
+        if (_preferredVoice) u.voice = _preferredVoice;
+        u.lang = 'en-GB';
+        u.rate = rate || 0.9;
+        u.pitch = 1.0;
+        u.onstart = () => _setBtnSpeaking(true);
+        u.onend   = () => { _setBtnSpeaking(false); if (onEnd) onEnd(); };
+        u.onerror  = () => { _setBtnSpeaking(false); if (onEnd) onEnd(); };
+        _synth.speak(u);
+      }, 50);
+    }
+
+    function speak(text, rate, onEnd) { _speakRaw(text, rate || 0.9, onEnd); }
+
+    // Phonics sounds → use mp3 files
+    function speakSound(label) { _playMp3(label, null); }
+    function speakSoundCb(label, onEnd) { _playMp3(label, onEnd); }
+
+    // Words → use Web Speech API
+    function speakText(word) { speak(word, 0.9); }
+    function speakPhonics() { speakSound(currentItems[cardIndex].l); }
+    function speakWord() {
+      const it = currentItems[cardIndex];
+      speakSoundCb(it.l, () => setTimeout(() => speak(it.w, 0.8), 300));
+    }
+    function speakQuizPrompt() {
+      if (quizIndex >= quizQuestions.length) return;
+      const q = quizQuestions[quizIndex];
+      if (q.type === 'sound-to-word') speakSound(q.correct.l); else speakText(q.correct.w);
+    }
+
+    // chain-speak array of texts with delays
+    function speakChain(texts, rate, delay, onDone) {
+      let i = 0;
+      function next() {
+        if (i >= texts.length) { if (onDone) onDone(); return; }
+        speak(texts[i], rate, () => setTimeout(next, delay));
+        i++;
+      }
+      next();
+    }
+
+    // ===== FLASHCARD =====
+    function startLearn() {
+      currentItems = phases[currentPhase].items;
+      currentMode = 'learn';
+      cardIndex = 0;
+      document.getElementById('learn-title').textContent = phases[currentPhase].name;
+      showScreen('learn-screen');
+      renderCard();
+    }
+    function renderCard() {
+      const it = currentItems[cardIndex];
+      document.getElementById('fc-phonics').textContent = it.l;
+      document.getElementById('fc-emoji').textContent = it.e;
+      document.getElementById('fc-word').textContent = it.w;
+      document.getElementById('fc-phonics-back').textContent = it.l;
+      document.getElementById('card-counter').textContent = `${cardIndex + 1} / ${currentItems.length}`;
+      document.getElementById('flashcard').classList.remove('flipped');
+      const btn = document.getElementById('learned-btn');
+      if (progress.learned[it.id]) { btn.className = 'learned-btn is-learned'; btn.textContent = '★ Learned'; }
+      else { btn.className = 'learned-btn not-learned'; btn.textContent = '☆ Learn'; }
+      document.getElementById('prev-btn').disabled = cardIndex === 0;
+      document.getElementById('next-btn').disabled = cardIndex === currentItems.length - 1;
+      setTimeout(() => speakSound(it.l), 300);
+    }
+    function flipCard() {
+      const fc = document.getElementById('flashcard');
+      fc.classList.toggle('flipped');
+      const it = currentItems[cardIndex];
+      if (fc.classList.contains('flipped')) setTimeout(() => speakText(it.w), 400);
+      else setTimeout(() => speakSound(it.l), 400);
+    }
+    function prevCard() { if (cardIndex > 0) { cardIndex--; renderCard(); } }
+    function nextCard() { if (cardIndex < currentItems.length - 1) { cardIndex++; renderCard(); } }
+    function toggleLearned() {
+      const it = currentItems[cardIndex];
+      if (progress.learned[it.id]) delete progress.learned[it.id];
+      else { progress.learned[it.id] = true; progress.stars = (progress.stars || 0) + 1; }
+      saveProgress(); renderCard();
+    }
+
+    // Swipe
+    (function () {
+      let tx = 0; const fc = document.getElementById('flashcard');
+      fc.addEventListener('touchstart', e => { tx = e.changedTouches[0].screenX }, { passive: true });
+      fc.addEventListener('touchend', e => { const dx = e.changedTouches[0].screenX - tx; if (Math.abs(dx) > 60) { dx < 0 ? nextCard() : prevCard(); } }, { passive: true });
+    })();
+
+    // ===== QUIZ =====
+    function startQuiz() {
+      currentItems = phases[currentPhase].items;
+      currentMode = 'quiz';
+      document.getElementById('quiz-title').textContent = 'Quiz: Phase ' + currentPhase;
+      quizScore = 0; quizIndex = 0;
+      quizQuestions = genQuiz(currentItems, Math.min(10, currentItems.length));
+      showScreen('quiz-screen');
+      renderQuiz();
+    }
+    function genQuiz(items, count) {
+      const sh = [...items].sort(() => Math.random() - 0.5).slice(0, count);
+      return sh.map(correct => {
+        const others = items.filter(i => i.id !== correct.id).sort(() => Math.random() - 0.5).slice(0, 3);
+        const choices = [correct, ...others].sort(() => Math.random() - 0.5);
+        return { correct, choices, type: Math.random() < 0.5 ? 'sound-to-word' : 'word-to-sound' };
+      });
+    }
+    function renderQuiz() {
+      if (quizIndex >= quizQuestions.length) { showQuizResults(); return; }
+      quizAnswered = false;
+      const q = quizQuestions[quizIndex];
+      document.getElementById('quiz-progress').innerHTML = quizQuestions.map((_, i) => {
+        let c = 'quiz-dot'; if (i === quizIndex) c += ' current'; return `<div class="${c}"></div>`;
+      }).join('');
+      if (q.type === 'sound-to-word') {
+        document.getElementById('quiz-emoji').textContent = '';
+        document.getElementById('quiz-main').textContent = q.correct.l;
+        document.getElementById('quiz-sub').textContent = 'Which word matches this sound?';
+        document.getElementById('quiz-choices').innerHTML = q.choices.map((c, i) =>
+          `<button class="quiz-choice" onclick="answerQuiz(${i})"><span class="choice-emoji">${c.e}</span> ${c.w}</button>`).join('');
+      } else {
+        document.getElementById('quiz-emoji').textContent = q.correct.e;
+        document.getElementById('quiz-main').textContent = q.correct.w;
+        document.getElementById('quiz-sub').textContent = 'Which sound makes this word?';
+        document.getElementById('quiz-choices').innerHTML = q.choices.map((c, i) =>
+          `<button class="quiz-choice" onclick="answerQuiz(${i})">${c.l}</button>`).join('');
+      }
+      setTimeout(() => speakQuizPrompt(), 300);
+    }
+    function answerQuiz(idx) {
+      if (quizAnswered) return; quizAnswered = true;
+      const q = quizQuestions[quizIndex];
+      const btns = document.querySelectorAll('.quiz-choice');
+      const ci = q.choices.indexOf(q.correct);
+      const ok = idx === ci;
+      if (ok) { quizScore++; btns[idx].classList.add('correct'); speakText(q.correct.w); }
+      else { btns[idx].classList.add('wrong'); btns[ci].classList.add('correct'); }
+      btns.forEach(b => b.disabled = true);
+      const dots = document.querySelectorAll('.quiz-dot');
+      if (dots[quizIndex]) { dots[quizIndex].classList.remove('current'); dots[quizIndex].classList.add(ok ? 'correct' : 'wrong'); }
+      setTimeout(() => { quizIndex++; renderQuiz(); }, 1200);
+    }
+    function showQuizResults() {
+      showScreen('quiz-results-screen');
+      const total = quizQuestions.length, pct = Math.round((quizScore / total) * 100);
+      document.getElementById('result-score').textContent = quizScore;
+      document.getElementById('result-total').textContent = '/ ' + total;
+      const c = document.getElementById('result-circle'); c.className = 'score-circle';
+      if (pct >= 80) { c.classList.add('great'); document.getElementById('result-heading').textContent = 'Amazing!'; document.getElementById('result-message').textContent = "You're a phonics superstar! ⭐"; progress.stars = (progress.stars || 0) + 3; }
+      else if (pct >= 50) { c.classList.add('good'); document.getElementById('result-heading').textContent = 'Good Job!'; document.getElementById('result-message').textContent = 'Keep practicing!'; progress.stars = (progress.stars || 0) + 1; }
+      else { c.classList.add('try-again'); document.getElementById('result-heading').textContent = 'Keep Trying!'; document.getElementById('result-message').textContent = "Practice makes perfect!"; }
+      const key = `quiz_p${currentPhase}`;
+      if (!progress.quizHighScores[key] || quizScore > progress.quizHighScores[key]) progress.quizHighScores[key] = quizScore;
+      saveProgress(); if (pct >= 80) spawnConfetti();
+    }
+    function restartQuiz() { startQuiz(); }
+
+    // ===== MATCH =====
+    function setMatchDifficulty(p, btn) { matchPairCount = p; document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); initMatch(); }
+    function startMatch() {
+      currentItems = phases[currentPhase].items; currentMode = 'match';
+      document.getElementById('match-title').textContent = 'Match: Phase ' + currentPhase;
+      showScreen('match-screen'); initMatch();
+    }
+    function initMatch() {
+      if (matchTimer) { clearInterval(matchTimer); matchTimer = null; }
+      matchFlipped = []; matchMatched = 0; matchMoves = 0; matchSeconds = 0; matchLocked = false;
+      document.getElementById('match-moves').textContent = '0';
+      document.getElementById('match-pairs').textContent = `0/${matchPairCount}`;
+      document.getElementById('match-timer').textContent = '0:00';
+      const sel = [...currentItems].sort(() => Math.random() - 0.5).slice(0, matchPairCount);
+      matchCards = [];
+      sel.forEach((it, i) => {
+        matchCards.push({ pairId: i, type: 'phonics', display: it.l, item: it });
+        matchCards.push({ pairId: i, type: 'word', display: it.w, emoji: it.e, item: it });
+      });
+      matchCards.sort(() => Math.random() - 0.5);
+      const grid = document.getElementById('match-grid');
+      const t = matchCards.length; grid.className = 'match-grid';
+      if (t <= 8) grid.classList.add('size-8'); else if (t <= 12) grid.classList.add('size-12'); else grid.classList.add('size-16');
+      grid.innerHTML = matchCards.map((c, i) => `
+    <div class="match-card" data-index="${i}" onclick="flipMatch(${i})">
+      <div class="match-card-face match-card-back">?</div>
+      <div class="match-card-face match-card-front">
+        ${c.type === 'phonics' ? `<span class="card-phonics">${c.display}</span>` : `<span class="card-emoji">${c.emoji}</span><span class="card-word">${c.display}</span>`}
+      </div>
+    </div>`).join('');
+      matchTimer = setInterval(() => { matchSeconds++; const m = Math.floor(matchSeconds / 60), s = matchSeconds % 60; document.getElementById('match-timer').textContent = `${m}:${s.toString().padStart(2, '0')}`; }, 1000);
+    }
+    function flipMatch(idx) {
+      if (matchLocked) return;
+      const el = document.querySelector(`.match-card[data-index="${idx}"]`);
+      if (!el || el.classList.contains('flipped') || el.classList.contains('matched')) return;
+      if (matchFlipped.length >= 2) return;
+      el.classList.add('flipped');
+      matchFlipped.push({ index: idx, card: matchCards[idx], el });
+      const card = matchCards[idx];
+      if (card.type === 'phonics') speakSound(card.display); else speakText(card.display);
+      if (matchFlipped.length === 2) {
+        matchMoves++; document.getElementById('match-moves').textContent = matchMoves; matchLocked = true;
+        const [a, b] = matchFlipped;
+        if (a.card.pairId === b.card.pairId) {
+          setTimeout(() => {
+            a.el.classList.add('matched'); b.el.classList.add('matched'); matchMatched++;
+            document.getElementById('match-pairs').textContent = `${matchMatched}/${matchPairCount}`;
+            matchFlipped = []; matchLocked = false;
+            if (matchMatched === matchPairCount) {
+              clearInterval(matchTimer); matchTimer = null; progress.stars = (progress.stars || 0) + 2; saveProgress();
+              setTimeout(() => { document.getElementById('celeb-title').textContent = 'You Did It!'; document.getElementById('celeb-msg').textContent = `${matchMoves} moves`; document.getElementById('celebration').classList.add('active'); spawnConfetti(); }, 400);
+            }
+          }, 400);
+        } else {
+          setTimeout(() => { a.el.classList.remove('flipped'); b.el.classList.remove('flipped'); matchFlipped = []; matchLocked = false; }, 800);
+        }
+      }
+    }
+
+    // ===== BLENDING MODE =====
+    function startBlend() {
+      currentMode = 'blend';
+      blendWords = [...phases[currentPhase].blendWords].sort(() => Math.random() - 0.5);
+      blendIndex = 0;
+      document.getElementById('blend-title').textContent = 'Blending: Phase ' + currentPhase;
+      showScreen('blend-screen');
+      renderBlend();
+    }
+
+    function renderBlend() {
+      const bw = blendWords[blendIndex];
+      document.getElementById('blend-counter').textContent = `${blendIndex + 1} / ${blendWords.length}`;
+      document.getElementById('blend-emoji').textContent = bw.e;
+      document.getElementById('blend-full-word').textContent = bw.w;
+      document.getElementById('blend-full-word').classList.remove('revealed');
+
+      const phContainer = document.getElementById('blend-phonemes');
+      phContainer.innerHTML = bw.ph.map((p, i) =>
+        `<button class="blend-phoneme" onclick="tapPhoneme(${i})">${p}</button>`
+      ).join('');
+
+      document.getElementById('blend-prev').style.visibility = blendIndex === 0 ? 'hidden' : 'visible';
+      document.getElementById('blend-next').textContent = blendIndex === blendWords.length - 1 ? 'Done ✓' : 'Next ›';
+    }
+
+    function tapPhoneme(idx) {
+      const bw = blendWords[blendIndex];
+      const ph = bw.ph[idx];
+
+      // Highlight
+      const els = document.querySelectorAll('.blend-phoneme');
+      els.forEach(e => e.classList.remove('highlight'));
+      els[idx].classList.add('highlight');
+      speakSoundCb(ph, () => { els[idx].classList.remove('highlight'); });
+    }
+
+    function playSoundOut() {
+      const bw = blendWords[blendIndex];
+      const delays = { slow: 800, normal: 500, fast: 300 };
+      const delay = delays[blendSpeed] || 500;
+
+      const els = document.querySelectorAll('.blend-phoneme');
+      let i = 0;
+      function nextPh() {
+        if (i >= bw.ph.length) return;
+        els.forEach(e => e.classList.remove('highlight'));
+        els[i].classList.add('highlight');
+        speakSoundCb(bw.ph[i], () => {
+          els[i].classList.remove('highlight');
+          i++;
+          if (i < bw.ph.length) setTimeout(nextPh, delay);
+        });
+      }
+      nextPh();
+    }
+
+    function playBlend() {
+      const bw = blendWords[blendIndex];
+      document.getElementById('blend-full-word').classList.add('revealed');
+
+      // First sound out, then blend
+      const delays = { slow: 800, normal: 500, fast: 300 };
+      const delay = delays[blendSpeed] || 500;
+
+      const els = document.querySelectorAll('.blend-phoneme');
+      let i = 0;
+      function nextPh() {
+        if (i >= bw.ph.length) {
+          // After sounding out, say the full word
+          setTimeout(() => {
+            els.forEach(e => e.classList.add('highlight'));
+            speak(bw.w, 0.8, () => els.forEach(e => e.classList.remove('highlight')));
+          }, delay);
+          return;
+        }
+        els.forEach(e => e.classList.remove('highlight'));
+        els[i].classList.add('highlight');
+        speakSoundCb(bw.ph[i], () => {
+          els[i].classList.remove('highlight');
+          i++;
+          if (i < bw.ph.length) setTimeout(nextPh, delay * 0.6);
+          else nextPh();
+        });
+      }
+      nextPh();
+    }
+
+    function prevBlend() { if (blendIndex > 0) { blendIndex--; renderBlend(); } }
+    function nextBlend() {
+      if (blendIndex < blendWords.length - 1) { blendIndex++; renderBlend(); }
+      else {
+        progress.stars = (progress.stars || 0) + 2; saveProgress();
+        document.getElementById('celeb-title').textContent = 'Great Blending!';
+        document.getElementById('celeb-msg').textContent = 'You sounded out all the words!';
+        document.getElementById('celebration').classList.add('active');
+        spawnConfetti();
+      }
+    }
+
+    function setBlendSpeed(speed, btn) {
+      blendSpeed = speed;
+      document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    // ===== CONFETTI =====
+    function spawnConfetti() {
+      const colors = ['#FF6B9D', '#C084FC', '#60A5FA', '#34D399', '#FBBF24', '#FB923C'];
+      for (let i = 0; i < 40; i++) {
+        const el = document.createElement('div'); el.className = 'confetti-piece';
+        el.style.left = Math.random() * 100 + 'vw'; el.style.top = '-10px';
+        el.style.background = colors[Math.floor(Math.random() * colors.length)];
+        el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+        el.style.width = (6 + Math.random() * 8) + 'px'; el.style.height = (6 + Math.random() * 8) + 'px';
+        el.style.animationDelay = (Math.random() * 0.8) + 's'; el.style.animationDuration = (1.5 + Math.random()) + 's';
+        document.body.appendChild(el); setTimeout(() => el.remove(), 3000);
+      }
+    }
+    function closeCelebration() { document.getElementById('celebration').classList.remove('active'); }
+
+    // ===== INIT =====
+    buildPhaseGrid();
+    updateProgressUI();
+  </script>
+</body>
+
+</html>
