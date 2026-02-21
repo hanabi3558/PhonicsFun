@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/1fab6.png" width="120" alt="Phoenix">
+<img src="logo.png" width="150" alt="PhonicsFun Logo">
 
 <h1>PhonicsFun!</h1>
 
