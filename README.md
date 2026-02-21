@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="logo.png" width="150" alt="PhonicsFun Logo">
+<img src="logo.png" height="150" alt="PhonicsFun Logo">
 
 <h1>PhonicsFun!</h1>
 
